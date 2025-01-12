@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Gider Ekle</h2>
+<form onsubmit="event.preventDefault(); addExpense();">
+    <label for="expense-description">Açıklama:</label>
+    <input type="text" id="expense-description" required>
+    <br>
+    <label for="expense-amount">Tutar:</label>
+    <input type="number" id="expense-amount" step="0.01" required>
+    <br>
+    <button type="submit">Gider Ekle</button>
+</form>
+<script>
+async function addExpense() {
+    const description = document.getElementById("expense-description").value;
+    const amount = document.getElementById("expense-amount").value;
+
+    const response = await fetch('/expense', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description, amount: parseFloat(amount) }),
+    });
+
+    const result = await response.json();
+    alert(result.message || result.error);
+}
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+      - FLASK_DEBUG=1
+      - MONGO_URI=mongodb://mongo:27017/gelir_gider_db
+    volumes:
+      - ./app:/app  # Dosya değişikliklerini otomatik algılar
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always  # MongoDB'nin otomatik yeniden başlatılması
+
+volumes:
+  mongo-data:

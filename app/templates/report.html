@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Rapor</h2>
+<form onsubmit="event.preventDefault(); getReportByDate();">
+    <label for="start-date">Başlangıç Tarihi:</label>
+    <input type="date" id="start-date" required>
+    <label for="end-date">Bitiş Tarihi:</label>
+    <input type="date" id="end-date" required>
+    <button type="submit">Raporu Getir</button>
+</form>
+
+<div id="report">
+    <p>Tarih aralığını seçip raporu getirin.</p>
+</div>
+<script>
+async function getReportByDate() {
+    const startDate = document.getElementById("start-date").value;
+    const endDate = document.getElementById("end-date").value;
+
+    const response = await fetch(`/report?start_date=${startDate}&end_date=${endDate}&format=json`);
+    const report = await response.json();
+
+    if (report.error) {
+        alert(report.error);
+        return;
+    }
+
+    const table = `
+        <h3>Gelir ve Gider Tablosu</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tür</th>
+                    <th>Açıklama</th>
+                    <th>Tutar</th>
+                    <th>Tarih</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${report.incomes
+                    .map(
+                        (income) =>
+                            `<tr style="color: green;">
+                                <td>Gelir</td>
+                                <td>${income.category}</td>
+                                <td>${income.amount} TL</td>
+                                <td>${new Date(income.date).toLocaleDateString()}</td>
+                            </tr>`
+                    )
+                    .join('')}
+                ${report.expenses
+                    .map(
+                        (expense) =>
+                            `<tr style="color: red;">
+                                <td>Gider</td>
+                                <td>${expense.description}</td>
+                                <td>${expense.amount} TL</td>
+                                <td>${new Date(expense.date).toLocaleDateString()}</td>
+                            </tr>`
+                    )
+                    .join('')}
+            </tbody>
+        </table>
+
+        <div>
+            <h3>Özet</h3>
+            <p>Toplam Gelir: <span style="color: green;">${report.total_income} TL</span></p>
+            <p>Toplam Gider: <span style="color: red;">${report.total_expense} TL</span></p>
+            <p>Net Bakiye: ${report.net_balance} TL</p>
+        </div>
+    `;
+
+    document.getElementById('report').innerHTML = table;
+}
+</script>
+{% endblock %}

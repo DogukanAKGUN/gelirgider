@@ -1,0 +1,128 @@
+/* Genel gövde stili */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* Başlık stili */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Ana içerik alanı */
+main {
+    padding: 20px;
+}
+
+/* Form stili */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Form genişliği */
+    margin: 20px auto; /* Formu ortala */
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 14px; /* Yazı boyutu */
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 14px; /* Yazı boyutu */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Tablo stili */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+table tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Özet bölümü */
+h3 {
+    margin-top: 20px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+/* Renk kodlaması */
+span {
+    font-weight: bold;
+}
+
+span.green {
+    color: green;
+}
+
+span.red {
+    color: red;
+}
